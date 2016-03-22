@@ -1,3 +1,5 @@
+/*globals cloudantService:true */
+/*eslint-env node */
 var express = require('express');
 var bodyParser = require('body-parser');
 var cfenv = require("cfenv");
@@ -5,6 +7,9 @@ var path = require('path');
 var cors = require('cors');
 var orders = require('./routes/orders');
 var appEnv = cfenv.getAppEnv();
+
+//Setup Cloudant Service.
+cloudantService = appEnv.getService("myMicroservicesCloudant");
 
 //Setup middleware.
 var app = express();
@@ -21,3 +26,5 @@ app.post('/rest/orders', orders.create);
 
 app.listen(appEnv.port, appEnv.bind);
 console.log('App started on ' + appEnv.bind + ':' + appEnv.port);
+
+
