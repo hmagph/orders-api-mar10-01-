@@ -1,17 +1,17 @@
 /*eslint-env node */
+/*globals cloudantService */
 var cloudant = require('cloudant')(cloudantService.credentials.url);
-var ordersDb = cloudant.use('orders');
 
 //Initiate the database.
-var initDB = function() {
-    cloudant.db.create('orders', function(err/*, body*/) {
-	    if (!err) {
-	        //console.log('Successfully created database!');
-	    } else {
-	        //console.log("Database already exists.");
-	    }
-    });
-};
+cloudant.db.create('orders', function(err/*, body*/) {
+    if (!err) {
+        console.log('Successfully created database!');
+    } else {
+        console.log("Database already exists.");
+    }
+ });
+
+var ordersDb = cloudant.use('orders');
 
 /* add an order to the database */
 exports.create = function(req, res) {
@@ -57,4 +57,3 @@ exports.list = function(req, res) {
 	});
 };
 	
-initDB();
